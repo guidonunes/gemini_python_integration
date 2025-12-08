@@ -35,7 +35,7 @@ llm = genai.GenerativeModel(
     )
 
 
-query = "list 3 video games that every rpg fan should play."
+query = "I am in a mood for a hardcore challenge. A mix of action and adventure would be welcome."
 response = llm.generate_content(query)
 
 print(f"Gemini Response: {response.text} ")
