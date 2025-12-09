@@ -1,0 +1,37 @@
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+GOOGLE_API_KEY = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=GOOGLE_API_KEY)
+
+FLASH_MODEL = "gemini-2.5-flash"
+PRO_MODEL = "gemini-2.5-pro"
+
+# Pricing per 1 million tokens
+ENTRY_COST_FLASH = 0.30
+OUTPUT_COST_FLASH = 2.50
+
+# Pricing per 1 million tokens
+ENTRY_COST_PRO = 1.25
+OUTPUT_COST_PRO= 10.00
+
+
+model_flash = genai.get_model(f"models/{FLASH_MODEL}")
+
+flash_model_limits = {
+    "input_tokens": model_flash.input_token_limit,
+    "output_tokens": model_flash.output_token_limit
+}
+
+model_pro = genai.get_model(f"models/{PRO_MODEL}")
+
+pro_model_limits = {
+    "input_tokens": model_pro.input_token_limit,
+    "output_tokens": model_pro.output_token_limit
+}
+
+print(f"Flash Model Token Limits: {flash_model_limits}")
+print(f"Pro Model Token Limits: {pro_model_limits}")

@@ -59,7 +59,7 @@ def main():
         print(f"Response: {categorize_games(query, possible_genres)}")
         query = input("Enter the game title to categorize (or press Enter to quit): ")
 
-print("Exiting the program.Bye!")
+
 
 if __name__ == "__main__":
     main()
