@@ -21,6 +21,7 @@ def categorize_games(title, possible_genres):
         #Example
         Game: The Legend of Zelda: Breath of the Wild
         Genre: Adventure
+        Description: An open-world action-adventure game where players explore the vast kingdom of Hyrule, solving puzzles and battling enemies to rescue Princess Zelda.
     """
 
     llm = genai.GenerativeModel(
@@ -52,8 +53,11 @@ def main():
         "Stealth"
     ]
 
-    query = "The games are: The Witcher 3, Celeste, Doom Eternal, Stardew Valley, Dark Souls III."
-    print(f"Response: {categorize_games(query, possible_genres)}")
+
+    query = input("Enter the game title to categorize (or press Enter to quit): ")
+
+    while query != "":
+        print(f"Response: {categorize_games(query, possible_genres)}")
 
 if __name__ == "__main__":
     main()
