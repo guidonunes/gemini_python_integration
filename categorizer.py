@@ -53,7 +53,7 @@ def main():
     ]
 
     query = "The games are: The Witcher 3, Celeste, Doom Eternal, Stardew Valley, Dark Souls III."
-    response = categorize_games(query, possible_genres)
+    print(f"Response: {categorize_games(query, possible_genres)}")
 
 if __name__ == "__main__":
     main()
