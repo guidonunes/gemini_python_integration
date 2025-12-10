@@ -35,3 +35,10 @@ pro_model_limits = {
 
 print(f"Flash Model Token Limits: {flash_model_limits}")
 print(f"Pro Model Token Limits: {pro_model_limits}")
+
+llm_flash= genai.GenerativeModel(
+    f"models/{FLASH_MODEL}"
+    )
+
+tokens_amount = llm_flash.count_tokens("What is the capital of France?")
+print(f"Tokens used in the prompt: {tokens_amount}")
