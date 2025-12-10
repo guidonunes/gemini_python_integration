@@ -42,3 +42,13 @@ llm_flash= genai.GenerativeModel(
 
 tokens_amount = llm_flash.count_tokens("What is the capital of France?")
 print(f"Tokens used in the prompt: {tokens_amount}")
+
+response = llm_flash.generate_content("Who won the FIFA World Cup in 2022?")
+tokens_prompt = response.usage_metadata.prompt_token_count
+tokens_response = response.usage_metadata.candidates_token_count
+
+total_cost = (tokens_prompt / 1_000_000) * ENTRY_COST_FLASH + (tokens_response / 1_000_000) * OUTPUT_COST_FLASH
+print(f"total cost of the request: ${total_cost:.6f}")
+
+total_cost_pro = (tokens_prompt / 1_000_000) * ENTRY_COST_PRO + (tokens_response / 1_000_000) * OUTPUT_COST_PRO
+print(f"total cost of the request using Pro model: ${total_cost_pro:.6f}")
