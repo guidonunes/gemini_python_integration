@@ -74,7 +74,7 @@ gemini_python_integration/
 
 ---
 
-## 📌 Future Improvements (optional section)
+## 📌 Future Improvements 
 
 1. Add multiplayer or platform-specific recommendations
 
