@@ -73,3 +73,13 @@ gemini_python_integration/
 6. Output is displayed via the CLI
 
 ---
+
+## 📌 Future Improvements (optional section)
+
+1. Add multiplayer or platform-specific recommendations
+
+2. Introduce memory for long-term user profiles
+
+3. Add a web UI (Flask/React)
+
+4. Integrate Steam, Metacritic, or IGDB APIs for real-time game data
