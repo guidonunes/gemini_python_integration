@@ -29,15 +29,28 @@ def save(file_path, content):
         print(f"Error: {e}.")
 
 system_prompt = f"""
-You are a sentiment analyzer for video game reviews.
-Write a paragraph of up to 50 words summarizing the reviews and then attribute the general sentiment for the game or genre.
-Also identify 3 strengths and 3 weaknesses identified from the reviews.
+    You are a sentiment analyzer for video game reviews.
+    Write a paragraph of up to 50 words summarizing the reviews and then attribute the general sentiment for the game or genre.
+    Also identify 3 strengths and 3 weaknesses identified from the reviews.
 
-# Output Format
+    # Output Format
 
-Game/Genre Name:
-Review Summary:
-General Sentiment: [use only Positive, Negative, or Neutral]
-Strengths: list with three bullets
-Weaknesses: list with three bullets
+    Game/Genre Name:
+    Review Summary:
+    General Sentiment: [use only Positive, Negative, or Neutral]
+    Strengths: list with three bullets
+    Weaknesses: list with three bullets
 """
+
+review_category = "reviews_cozy_sim"
+user_pompt = load(f"data/{review_category}.csv")
+print(f"Sentiment Analysis for {review_category} reviews")
+
+llm = genai.GenerativeModel(
+    model_name=CHOSEN_MODEL,
+    system_instruction=system_prompt
+)
+response = llm.generate_content(user_pompt)
+response_text = response.text
+
+save(f"data/{review_category}_sentiment_analysis.txt", response_text)
