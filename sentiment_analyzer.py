@@ -1,5 +1,6 @@
 import os
 import google.generativeai as genai
+from google.api_core.exceptions import NotFound
 from dotenv import load_dotenv
 
 
@@ -9,7 +10,7 @@ load_dotenv()
 GOOGLE_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
 
-CHOSEN_MODEL = "gemini-2.5-flash"
+model = "gemini-2.5-flash"
 
 
 def load(file_path):
@@ -29,7 +30,7 @@ def save(file_path, content):
         print(f"Error: {e}.")
 
 
-def sentiment_analizer(game_name):
+def sentiment_analizer(game_name, model = "gemini-2.5-flash"):
     system_prompt = f"""
         You are a sentiment analyzer for video game reviews.
         Write a paragraph of up to 50 words summarizing the reviews and then attribute the general sentiment for the game or genre.
@@ -48,14 +49,19 @@ def sentiment_analizer(game_name):
     user_pompt = load(f"data/{review_category}.csv")
     print(f"Sentiment Analysis for {review_category} reviews")
 
-    llm = genai.GenerativeModel(
-        model_name=CHOSEN_MODEL,
-        system_instruction=system_prompt
-    )
-    response = llm.generate_content(user_pompt)
-    response_text = response.text
+    try:
+        llm = genai.GenerativeModel(
+            model_name=model,
+            system_instruction=system_prompt
+        )
+        response = llm.generate_content(user_pompt)
+        response_text = response.text
 
-    save(f"data/{game_name}_sentiment_analysis.txt", response_text)
+        save(f"data/{game_name}_sentiment_analysis.txt", response_text)
+    except NotFound as e:
+        model = "gemini-2.5-flash"
+        print(f"Error in the model name: {e}.")
+        sentiment_analizer(game_name, model)
 
 
 def main():
